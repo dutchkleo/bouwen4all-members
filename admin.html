@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Kleo.nl</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .admin-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-left: 1rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .dashboard-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-header h1 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .dashboard-header p {
+            color: #666;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0d7377;
+        }
+
+        .controls {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.25rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: #0d7377;
+            color: #0d7377;
+        }
+
+        .filter-btn.active {
+            background: #0d7377;
+            color: white;
+            border-color: #0d7377;
+        }
+
+        .export-btn {
+            padding: 0.75rem 1.5rem;
+            background: #f4d47c;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .export-btn:hover {
+            background: #f0c75e;
+        }
+
+        .users-table {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f9f9f9;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-verified {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .user-email {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .user-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            border-color: #0d7377;
+            color: #0d7377;
+        }
+
+        .action-btn.danger:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .login-required {
+            max-width: 500px;
+            margin: 4rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .login-required h2 {
+            margin-bottom: 1rem;
+            color: #e74c3c;
+        }
+
+        .login-required p {
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: #0d7377;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #0a5d60;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                flex-wrap: wrap;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span style="background: linear-gradient(135deg, #f4d47c, #0d7377); padding: 0.5rem; border-radius: 4px; color: white; font-weight: bold;">KLEO<br>NL</span>
+                <span class="admin-badge">ADMIN</span>
+            </div>
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <span id="adminName"></span>
+                <button class="logout-btn" onclick="handleLogout()">Uitloggen</button>
+            </div>
+        </nav>
+    </header>
+
+    <div id="loginRequired" class="login-required">
+        <h2>🔒 Toegang Geweigerd</h2>
+        <p>Je moet ingelogd zijn als admin om deze pagina te bekijken.</p>
+        <a href="index.html" class="btn">Naar Login</a>
+    </div>
+
+    <div id="dashboardContent" style="display: none;">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>👥 Ledenbeheer</h1>
+                <p>Overzicht van alle geregistreerde gebruikers</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Totaal Leden</h3>
+                    <div class="number" id="totalUsers">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Geverifieerd</h3>
+                    <div class="number" id="verifiedUsers">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>In afwachting</h3>
+                    <div class="number" id="pendingUsers">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Vandaag aangemeld</h3>
+                    <div class="number" id="todayUsers">-</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Zoek op e-mailadres..." onkeyup="filterUsers()">
+                </div>
+                <div class="filter-group">
+                    <button class="filter-btn active" onclick="filterByStatus('all')">Alle</button>
+                    <button class="filter-btn" onclick="filterByStatus('verified')">Geverifieerd</button>
+                    <button class="filter-btn" onclick="filterByStatus('pending')">In afwachting</button>
+                </div>
+                <button class="export-btn" onclick="exportToCSV()">📥 Exporteer CSV</button>
+            </div>
+
+            <div class="users-table">
+                <div id="loadingState" class="loading">
+                    <p>⏳ Laden van gebruikers...</p>
+                </div>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <h3>Nog geen gebruikers</h3>
+                    <p>Er zijn nog geen geregistreerde leden.</p>
+                </div>
+                <table id="usersTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>E-mailadres</th>
+                            <th>Status</th>
+                            <th>Aangemeld op</th>
+                            <th>Laatst ingelogd</th>
+                            <th>Acties</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // CONFIGURATIE - Gebruik dezelfde credentials als index.html
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+
+        // Initialiseer Supabase client
+        const supabase = supabase.createClient(https://jptzlbhwqnwsotqvhmgi.supabase.co, eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpwdHpsYmh3cW53c290cXZobWdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2MDUwMDMsImV4cCI6MjA3NjE4MTAwM30.VoIcT1yPKIS8T89rvGUea0CJRs3UeO3Yi_i5Pl_xFzI);
+
+        let allUsers = [];
+        let currentFilter = 'all';
+
+        // Check of admin is ingelogd
+        window.addEventListener('DOMContentLoaded', async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (!session) {
+                document.getElementById('loginRequired').style.display = 'block';
+                return;
+            }
+
+            // Toon admin interface
+            document.getElementById('loginRequired').style.display = 'none';
+            document.getElementById('dashboardContent').style.display = 'block';
+            document.getElementById('userMenu').style.display = 'flex';
+            document.getElementById('adminName').textContent = session.user.email.split('@')[0];
+
+            // Laad gebruikers
+            await loadUsers();
+        });
+
+        // Laad alle gebruikers
+        async function loadUsers() {
+            try {
+                const { data: { users }, error } = await supabase.auth.admin.listUsers();
+
+                if (error) throw error;
+
+                allUsers = users;
+                updateStats();
+                renderUsers();
+
+            } catch (error) {
+                console.error('Error loading users:', error);
+                document.getElementById('loadingState').innerHTML = '<p style="color: #e74c3c;">❌ Fout bij laden van gebruikers. Check console.</p>';
+            }
+        }
+
+        // Update statistieken
+        function updateStats() {
+            const total = allUsers.length;
+            const verified = allUsers.filter(u => u.email_confirmed_at).length;
+            const pending = total - verified;
+
+            const today = new Date().toDateString();
+            const todayCount = allUsers.filter(u => {
+                const createdDate = new Date(u.created_at).toDateString();
+                return createdDate === today;
+            }).length;
+
+            document.getElementById('totalUsers').textContent = total;
+            document.getElementById('verifiedUsers').textContent = verified;
+            document.getElementById('pendingUsers').textContent = pending;
+            document.getElementById('todayUsers').textContent = todayCount;
+        }
+
+        // Render gebruikers tabel
+        function renderUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            let filtered = allUsers;
+
+            // Filter op status
+            if (currentFilter === 'verified') {
+                filtered = filtered.filter(u => u.email_confirmed_at);
+            } else if (currentFilter === 'pending') {
+                filtered = filtered.filter(u => !u.email_confirmed_at);
+            }
+
+            // Filter op zoekterm
+            if (searchTerm) {
+                filtered = filtered.filter(u => u.email.toLowerCase().includes(searchTerm));
+            }
+
+            // Sorteer op datum (nieuwste eerst)
+            filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            // Toon/verberg lege state
+            document.getElementById('loadingState').style.display = 'none';
+
+            if (filtered.length === 0) {
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('usersTable').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('usersTable').style.display = 'table';
+
+            // Render rows
+            tbody.innerHTML = filtered.map(user => `
+                <tr>
+                    <td>
+                        <div class="user-email">${user.email}</div>
+                    </td>
+                    <td>
+                        ${user.email_confirmed_at
+                            ? '<span class="status-badge status-verified">✓ Geverifieerd</span>'
+                            : '<span class="status-badge status-pending">⏳ In afwachting</span>'
+                        }
+                    </td>
+                    <td>
+                        <div class="user-date">${formatDate(user.created_at)}</div>
+                    </td>
+                    <td>
+                        <div class="user-date">${user.last_sign_in_at ? formatDate(user.last_sign_in_at) : 'Nooit'}</div>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <button class="action-btn" onclick="viewUserDetails('${user.id}')">Details</button>
+                            <button class="action-btn danger" onclick="confirmDeleteUser('${user.id}', '${user.email}')">Verwijder</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Filter op status
+        function filterByStatus(status) {
+            currentFilter = status;
+
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            renderUsers();
+        }
+
+        // Filter op zoekterm
+        function filterUsers() {
+            renderUsers();
+        }
+
+        // Format datum
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return date.toLocaleDateString('nl-NL', options);
+        }
+
+        // Bekijk gebruiker details
+        function viewUserDetails(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (!user) return;
+
+            alert(`
+Gebruiker Details:
+━━━━━━━━━━━━━━━━━━━━━━
+📧 E-mail: ${user.email}
+🆔 User ID: ${user.id}
+📅 Aangemeld: ${formatDate(user.created_at)}
+✓ Geverifieerd: ${user.email_confirmed_at ? 'Ja' : 'Nee'}
+🔐 Laatst ingelogd: ${user.last_sign_in_at ? formatDate(user.last_sign_in_at) : 'Nooit'}
+            `);
+        }
+
+        // Verwijder gebruiker
+        async function confirmDeleteUser(userId, email) {
+            if (!confirm(`Weet je zeker dat je ${email} wilt verwijderen?\n\nDeze actie kan niet ongedaan gemaakt worden.`)) {
+                return;
+            }
+
+            try {
+                const { error } = await supabase.auth.admin.deleteUser(userId);
+
+                if (error) throw error;
+
+                alert('✓ Gebruiker succesvol verwijderd');
+                await loadUsers();
+
+            } catch (error) {
+                alert('❌ Fout bij verwijderen: ' + error.message);
+            }
+        }
+
+        // Exporteer naar CSV
+        function exportToCSV() {
+            const csv = [
+                ['E-mailadres', 'Status', 'Aangemeld op', 'Laatst ingelogd'],
+                ...allUsers.map(u => [
+                    u.email,
+                    u.email_confirmed_at ? 'Geverifieerd' : 'In afwachting',
+                    formatDate(u.created_at),
+                    u.last_sign_in_at ? formatDate(u.last_sign_in_at) : 'Nooit'
+                ])
+            ].map(row => row.join(',')).join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `kleo-leden-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+        }
+
+        // Logout
+        async function handleLogout() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
