@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ledenomgeving - Kleo.nl</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0d7377;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #f4d47c 0%, #f0c75e 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .login-section {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .login-section h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0d7377;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: #f4d47c;
+            color: #333;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #f0c75e;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #0d7377;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #0a5d60;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            color: #999;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #efe;
+            color: #3c3;
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            background: #0d7377;
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            color: #0d7377;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .card-btn:hover {
+            color: #0a5d60;
+        }
+
+        .pricing {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .pricing h3 {
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0d7377;
+            margin: 1rem 0;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .benefits {
+            text-align: left;
+            margin: 2rem auto;
+            max-width: 400px;
+        }
+
+        .benefits li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0d7377;
+            font-weight: bold;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 1rem;
+            color: #666;
+        }
+
+        .toggle-form a {
+            color: #0d7377;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span style="background: linear-gradient(135deg, #f4d47c, #0d7377); padding: 0.5rem; border-radius: 4px; color: white; font-weight: bold;">KLEO<br>NL</span>
+            </div>
+            <ul class="nav-links" id="publicNav">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#bouwen">Bouwen & Wonen</a></li>
+                <li><a href="#vorm">Vorm op Maat</a></li>
+                <li><a href="#bouwregels">Bouwregels</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <span id="userName"></span>
+                <button class="logout-btn" onclick="handleLogout()">Uitloggen</button>
+            </div>
+        </nav>
+    </header>
+
+    <div id="loginView">
+        <section class="hero">
+            <h1>🔒 Ledenomgeving "Stap voor Stap"</h1>
+            <p>Exclusieve toegang tot custom GPT's, verdiepende blogs en praktische tools voor bouwen & wonen</p>
+        </section>
+
+        <div class="container">
+            <div class="login-section">
+                <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
+
+                <div id="loginFormContainer">
+                    <h2>Inloggen</h2>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">E-mailadres</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Wachtwoord</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary" id="loginBtn">Inloggen</button>
+                    </form>
+                    <div class="toggle-form">
+                        Nog geen account? <a href="#" onclick="showSignupForm(event)">Registreer hier</a>
+                    </div>
+                </div>
+
+                <div id="signupFormContainer" style="display: none;">
+                    <h2>Account Aanmaken</h2>
+                    <form id="signupForm" onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <label for="signupEmail">E-mailadres</label>
+                            <input type="email" id="signupEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Wachtwoord (min. 6 tekens)</label>
+                            <input type="password" id="signupPassword" minlength="6" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary" id="signupBtn">Registreren</button>
+                    </form>
+                    <div class="toggle-form">
+                        Al een account? <a href="#" onclick="showLoginForm(event)">Log hier in</a>
+                    </div>
+                </div>
+
+                <div class="divider">✨</div>
+
+                <div class="pricing">
+                    <h3>Wat krijg je als lid?</h3>
+                    <div class="price">€5 <span>per maand</span></div>
+                    <ul class="benefits">
+                        <li>Toegang tot custom GPT-assistenten</li>
+                        <li>Exclusieve blogs en artikelen</li>
+                        <li>Praktische tools en checklists</li>
+                        <li>Community-toegang</li>
+                        <li>Maandelijkse updates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboardView" class="dashboard">
+        <section class="hero">
+            <h1>Welkom terug!</h1>
+            <p>Jouw persoonlijke ledenomgeving</p>
+        </section>
+
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>Mijn Overzicht</h2>
+                <p>Kies waar je mee aan de slag wilt</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>Mijn GPT's</h3>
+                    <p>Custom GPT-assistenten voor bouwkundige vraagstukken, regelgeving en praktisch advies.</p>
+                    <a href="#" class="card-btn">Bekijk GPT's →</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📝</div>
+                    <h3>Exclusieve Blogs</h3>
+                    <p>Verdiepende artikelen over bouwen, wonen, regelgeving en praktische tips uit de praktijk.</p>
+                    <a href="#" class="card-btn">Lees blogs →</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🛠️</div>
+                    <h3>Tools & Checklists</h3>
+                    <p>Praktische hulpmiddelen voor jouw bouwproject, van planning tot oplevering.</p>
+                    <a href="#" class="card-btn">Naar tools →</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h3>Kennisbank</h3>
+                    <p>Overzicht van wetten, publicaties en bronnen voor bouwen & wonen.</p>
+                    <a href="#" class="card-btn">Ontdek kennis →</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🔔</div>
+                    <h3>Nieuwste Updates</h3>
+                    <p>Blijf op de hoogte van nieuwe GPT's, blogs en aanpassingen in regelgeving.</p>
+                    <a href="#" class="card-btn">Bekijk updates →</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">⚙️</div>
+                    <h3>Mijn Profiel</h3>
+                    <p>Beheer je voorkeuren, e-mailnotificaties en abonnement.</p>
+                    <a href="#" class="card-btn">Instellingen →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        // CONFIGURATIE - Vervang deze waarden met jouw Supabase credentials
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+        
+        // Initialiseer Supabase client
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Check of gebruiker al is ingelogd bij laden van pagina
+        window.addEventListener('DOMContentLoaded', async () => {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                showDashboard(session.user);
+            }
+        });
+
+        // Login handler
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('loginBtn');
+            
+            btn.disabled = true;
+            btn.textContent = 'Inloggen...';
+            hideMessages();
+
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) throw error;
+
+                showSuccess('Succesvol ingelogd!');
+                setTimeout(() => showDashboard(data.user), 500);
+                
+            } catch (error) {
+                showError(error.message || 'Er ging iets mis bij het inloggen');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Inloggen';
+            }
+        }
+
+        // Signup handler
+        async function handleSignup(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const btn = document.getElementById('signupBtn');
+            
+            btn.disabled = true;
+            btn.textContent = 'Registreren...';
+            hideMessages();
+
+            try {
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) throw error;
+
+                showSuccess('Account aangemaakt! Check je e-mail om je account te bevestigen.');
+                
+            } catch (error) {
+                showError(error.message || 'Er ging iets mis bij registratie');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Registreren';
+            }
+        }
+
+        // Logout handler
+        async function handleLogout() {
+            try {
+                const { error } = await supabaseClient.auth.signOut();
+                if (error) throw error;
+                
+                showLoginView();
+                showSuccess('Je bent uitgelogd');
+                
+            } catch (error) {
+                showError('Er ging iets mis bij uitloggen');
+            }
+        }
+
+        // UI helper functions
+        function showDashboard(user) {
+            document.getElementById('loginView').style.display = 'none';
+            document.getElementById('dashboardView').classList.add('active');
+            document.getElementById('publicNav').style.display = 'none';
+            document.getElementById('userMenu').style.display = 'flex';
+            document.getElementById('userName').textContent = user.email.split('@')[0];
+        }
+
+        function showLoginView() {
+            document.getElementById('loginView').style.display = 'block';
+            document.getElementById('dashboardView').classList.remove('active');
+            document.getElementById('publicNav').style.display = 'flex';
+            document.getElementById('userMenu').style.display = 'none';
+            document.getElementById('loginForm').reset();
+            document.getElementById('signupForm').reset();
+        }
+
+        function showSignupForm(event) {
+            event.preventDefault();
+            document.getElementById('loginFormContainer').style.display = 'none';
+            document.getElementById('signupFormContainer').style.display = 'block';
+            hideMessages();
+        }
+
+        function showLoginForm(event) {
+            event.preventDefault();
+            document.getElementById('signupFormContainer').style.display = 'none';
+            document.getElementById('loginFormContainer').style.display = 'block';
+            hideMessages();
+        }
+
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+
+        function showSuccess(message) {
+            const successEl = document.getElementById('successMessage');
+            successEl.textContent = message;
+            successEl.style.display = 'block';
+        }
+
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
