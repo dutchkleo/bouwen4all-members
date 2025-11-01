@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /api/
+Disallow: /chat/
+Disallow: /leden/
+"© Kleo – Alle teksten, code en concepten op deze site zijn auteursrechtelijk beschermd. Gebruik of reproductie zonder toestemming is niet toegestaan.”
