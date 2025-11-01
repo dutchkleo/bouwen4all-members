@@ -1,15 +1,15 @@
 <?php
 // =============================================
-// Kleo.nl – proxy.php
-// Veilige doorgang naar OpenAI API
+// Kleo.nl – proxy.php (Verbeterde versie)
+// Veilige doorgang naar OpenAI API met chat history
 // =============================================
 
 header('Content-Type: application/json; charset=utf-8');
 
 // --- Configuratie ---
-$allowed_origin = 'https://kleo.nl'; // alleen jouw domein
-$rate_limit_window = 10;  // tijdsframe in seconden
-$max_requests = 20;       // max aantal verzoeken per window
+$allowed_origin = 'https://kleo.nl';
+$rate_limit_window = 60;  // 1 minuut
+$max_requests = 20;       // max 20 verzoeken per minuut
 
 // --- CORS-beveiliging ---
 if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // --- API-sleutel ophalen uit omgeving (.htaccess) ---
 $apiKey = getenv('OPENAI_API_KEY');
-if (!$apiKey) {
+if (!$apiKey || $apiKey === 'sk-PASTE_HIER_JE_OPENAI_KEY') {
   http_response_code(500);
-  echo json_encode(['error' => 'API-sleutel niet gevonden']);
+  echo json_encode(['error' => 'API-sleutel niet correct geconfigureerd']);
   exit;
 }
 
@@ -51,7 +51,7 @@ $requests[$ip] = array_filter(($requests[$ip] ?? []), fn($t) => $t > $now - $rat
 // te veel verzoeken?
 if (count($requests[$ip]) >= $max_requests) {
   http_response_code(429);
-  echo json_encode(['error' => 'Te veel verzoeken, probeer later opnieuw.']);
+  echo json_encode(['error' => 'Te veel verzoeken. Maximaal ' . $max_requests . ' per minuut.']);
   exit;
 }
 
@@ -67,6 +67,18 @@ if (!$input) {
   exit;
 }
 
+// Validatie: messages array moet bestaan
+if (!isset($input['messages']) || !is_array($input['messages'])) {
+  http_response_code(400);
+  echo json_encode(['error' => 'Messages array ontbreekt']);
+  exit;
+}
+
+// Zorg dat model is ingesteld
+if (!isset($input['model'])) {
+  $input['model'] = 'gpt-4o-mini';
+}
+
 // --- OpenAI-aanvraag ---
 $ch = curl_init('https://api.openai.com/v1/chat/completions');
 curl_setopt_array($ch, [
@@ -76,12 +88,21 @@ curl_setopt_array($ch, [
     'Authorization: Bearer ' . $apiKey
   ],
   CURLOPT_POST => true,
-  CURLOPT_POSTFIELDS => json_encode($input)
+  CURLOPT_POSTFIELDS => json_encode($input),
+  CURLOPT_TIMEOUT => 30
 ]);
 
 $response = curl_exec($ch);
 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$curl_error = curl_error($ch);
 curl_close($ch);
+
+// --- Error handling ---
+if ($curl_error) {
+  http_response_code(500);
+  echo json_encode(['error' => 'Verbindingsfout: ' . $curl_error]);
+  exit;
+}
 
 // --- Respons doorgeven ---
 http_response_code($httpcode ?: 200);
