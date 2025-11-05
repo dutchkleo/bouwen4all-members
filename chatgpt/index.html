@@ -1,1 +1,221 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Custom GPT’s voor Bouwen & Wonen – Kleo</title>
+  <meta name="description" content="Zeven gespecialiseerde GPT’s van Kleo om bouwen en wonen in Nederland begrijpelijker te maken – van bouwregelgeving en bouwrecht tot transformatie, energie en stikstof." />
+  <meta property="og:title" content="Custom GPT’s voor Bouwen & Wonen – Kleo" />
+  <meta property="og:description" content="Kies de GPT die bij je vraag past: bouwregelgeving, bouwrecht, huurchat, vorm op maat, transformeer dat gebouw, vrije energieverkenner en stikstofdossier." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kleo.nl/customgpt/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Tailwind via CDN for this static page -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --kleo-yellow:#f8d64a; /* lichtgeel accent */
+      --kleo-green:#7ea177;  /* groene tint uit je palet */
+      --kleo-brown:#7a5b3a;  /* warme bruin */
+      --ink:#0a0d12;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+    .brand-gradient{background:linear-gradient(120deg,var(--kleo-green),var(--kleo-yellow))}
+    .card{box-shadow:0 10px 30px rgba(0,0,0,.06)}
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <!-- Top bar -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-white/80 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-xl brand-gradient"></div>
+        <span class="font-extrabold tracking-tight">Kleo</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#gpts" class="hover:underline">GPT’s</a>
+        <a href="#hoe" class="hover:underline">Hoe het werkt</a>
+        <a href="#contact" class="hover:underline">Contact</a>
+      </nav>
+      <a href="#gpts" class="md:hidden inline-flex items-center px-3 py-1.5 rounded-lg bg-[var(--kleo-yellow)] text-ink font-semibold">Start</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute -z-10 inset-0 opacity-[.08] pointer-events-none brand-gradient"></div>
+    <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">Custom GPT’s voor <span class="bg-[var(--kleo-yellow)] px-1">Bouwen & Wonen</span></h1>
+        <p class="mt-5 text-lg text-slate-700 max-w-prose">Zeven gespecialiseerde AI‑hulpen, gemaakt door Kleo, om het Nederlandse bouw- en woonvraagstuk helder en praktisch te maken—van regel tot realisatie.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#gpts" class="px-5 py-3 rounded-2xl bg-[var(--kleo-green)] text-white font-semibold">Bekijk alle GPT’s</a>
+          <a href="#hoe" class="px-5 py-3 rounded-2xl bg-white border border-slate-300 font-semibold">Hoe gebruik ik dit?</a>
+        </div>
+      </div>
+      <div class="md:pl-8">
+        <div class="card rounded-3xl bg-white p-6 md:p-8">
+          <p class="text-sm uppercase tracking-wider text-slate-500">Kies je hulp</p>
+          <ul class="mt-3 space-y-3 text-base">
+            <li>⚖️ <strong>Bouwregelgeving</strong> – wat mag wel/niet bij (ver)bouw?</li>
+            <li>🏛️ <strong>Bouwrecht</strong> – contracten, boetes, aansprakelijkheid.</li>
+            <li>🏠 <strong>Huurchat</strong> – rechten en plichten voor huurders/verhuurders.</li>
+            <li>🧩 <strong>Vorm op Maat</strong> – organisatie & samenwerking in de keten.</li>
+            <li>🏗️ <strong>Transformeer dat Gebouw</strong> – haalbaarheid & aanpak.</li>
+            <li>⚡ <strong>Vrije Energieverkenner</strong> – alternatieve energieconcepten.</li>
+            <li>🌿 <strong>Stikstofdossier</strong> – regels, depositie en vergunningen.</li>
+          </ul>
+          <div class="mt-5 text-sm text-slate-500">Samen vormen ze één toegankelijk kennisplatform voor bouwers, bewoners, gemeenten en studenten.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cards grid -->
+  <section id="gpts" class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl md:text-3xl font-extrabold">Kies de GPT die bij je vraag past</h2>
+    <p class="mt-2 text-slate-600">Klik op <em>Open in ChatGPT</em> om direct in een nieuw tabblad te starten. (Je hebt een ChatGPT‑account nodig.)</p>
+
+    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Card template functionally repeated for each GPT -->
+      <article class="card rounded-3xl bg-white p-6 flex flex-col">
+        <div class="text-3xl">⚖️</div>
+        <h3 class="mt-3 text-xl font-bold">Bouwregelgeving GPT</h3>
+        <p class="mt-2 text-slate-600">Snel weten wat kan en wat niet onder Omgevingswet, Bbl en Wkb. Perfect voor ontwerp, vergunning en uitvoering.</p>
+        <div class="mt-4 flex items-center gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-800">Regels & normen</span>
+          <span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-800">Praktisch</span>
+        </div>
+        <div class="mt-auto pt-5 flex gap-3">
+          <a href="https://chatgpt.com/g/g-67530b6f1368819193efcb356d6cbe65-regels-voor-bouwen-wonen-none-official" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-[var(--kleo-yellow)] font-semibold">Open in ChatGPT</a>
+          <a href="#bouwregelgeving" class="px-4 py-2 rounded-xl border">Meer info</a>
+        </div>
+      </article>
+
+      <article class="card rounded-3xl bg-white p-6 flex flex-col">
+        <div class="text-3xl">🏛️</div>
+        <h3 class="mt-3 text-xl font-bold">Bouwrecht GPT</h3>
+        <p class="mt-2 text-slate-600">Contract, boete, oplevering, aansprakelijkheid en recente rechtspraak helder uitgelegd in gewone taal.</p>
+        <div class="mt-4 flex items-center gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-blue-100 text-blue-800">Juridisch</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 text-slate-700">Uitleg</span>
+        </div>
+        <div class="mt-auto pt-5 flex gap-3">
+          <a href="https://chatgpt.com/g/g-69048f39adf88191932188f32d3ed5c7-bouwrecht-gpt-non-official" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-[var(--kleo-yellow)] font-semibold">Open in ChatGPT</a>
+          <a href="#bouwrecht" class="px-4 py-2 rounded-xl border">Meer info</a>
+        </div>
+      </article>
+
+      <article class="card rounded-3xl bg-white p-6 flex flex-col">
+        <div class="text-3xl">🏠</div>
+        <h3 class="mt-3 text-xl font-bold">Huurchat GPT</h3>
+        <p class="mt-2 text-slate-600">Rechten en plichten voor huurders én verhuurders — onderhoud, gebreken, huurprijs, servicekosten.</p>
+        <div class="mt-4 flex items-center gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-rose-100 text-rose-800">Huur</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 text-slate-700">Checklists</span>
+        </div>
+        <div class="mt-auto pt-5 flex gap-3">
+          <a href="https://chatgpt.com/g/g-677fb70329788191bdf857028b6d58b0-chat-over-huurwoning-in-nl-niet-officieel" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-[var(--kleo-yellow)] font-semibold">Open in ChatGPT</a>
+          <a href="#huurchat" class="px-4 py-2 rounded-xl border">Meer info</a>
+        </div>
+      </article>
+
+      <article class="card rounded-3xl bg-white p-6 flex flex-col">
+        <div class="text-3xl">🧩</div>
+        <h3 class="mt-3 text-xl font-bold">Vorm op Maat GPT</h3>
+        <p class="mt-2 text-slate-600">Denkgereedschap voor rolverdeling, samenwerking en organisatiekeuzes in de bouwketen.</p>
+        <div class="mt-4 flex items-center gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-violet-100 text-violet-800">Organisatie</span>
+          <span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-800">Samenwerking</span>
+        </div>
+        <div class="mt-auto pt-5 flex gap-3">
+          <a href="https://chatgpt.com/g/g-68a1809323908191927ded451d298349-vorm-op-maat" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-[var(--kleo-yellow)] font-semibold">Open in ChatGPT</a>
+          <a href="#vormopmaat" class="px-4 py-2 rounded-xl border">Meer info</a>
+        </div>
+      </article>
+
+      <article class="card rounded-3xl bg-white p-6 flex flex-col">
+        <div class="text-3xl">🏗️</div>
+        <h3 class="mt-3 text-xl font-bold">Transformeer dat Gebouw GPT</h3>
+        <p class="mt-2 text-slate-600">Checklist en routekaart voor transformatie/herbestemming — technisch, juridisch, financieel.</p>
+        <div class="mt-4 flex items-center gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-orange-100 text-orange-800">Transformatie</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 text-slate-700">Haalbaarheid</span>
+        </div>
+        <div class="mt-auto pt-5 flex gap-3">
+          <a href="https://chatgpt.com/g/g-68ecb4d72a8c8191b69a59df5e605ad4-transformeer-dat-gebouw" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-[var(--kleo-yellow)] font-semibold">Open in ChatGPT</a>
+          <a href="#transformeer" class="px-4 py-2 rounded-xl border">Meer info</a>
+        </div>
+      </article>
+
+      <article class="card rounded-3xl bg-white p-6 flex flex-col">
+        <div class="text-3xl">⚡</div>
+        <h3 class="mt-3 text-xl font-bold">Vrije Energieverkenner GPT</h3>
+        <p class="mt-2 text-slate-600">Onderzoekt alternatieve energieconcepten en hun haalbaarheid binnen huidige regels.</p>
+        <div class="mt-4 flex items-center gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-teal-100 text-teal-800">Energie</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 text-slate-700">Innovatie</span>
+        </div>
+        <div class="mt-auto pt-5 flex gap-3">
+          <a href="https://chatgpt.com/g/g-688c6e044b8c819184c0c2dd6b3210e9-vrije-energie-verkenner" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-[var(--kleo-yellow)] font-semibold">Open in ChatGPT</a>
+          <a href="#energie" class="px-4 py-2 rounded-xl border">Meer info</a>
+        </div>
+      </article>
+
+      <article class="card rounded-3xl bg-white p-6 flex flex-col">
+        <div class="text-3xl">🌿</div>
+        <h3 class="mt-3 text-xl font-bold">Stikstofdossier GPT</h3>
+        <p class="mt-2 text-slate-600">Van depositieberekening tot vergunning: begrijp de regels en je opties per project.</p>
+        <div class="mt-4 flex items-center gap-2 text-xs">
+          <span class="px-2 py-1 rounded-full bg-lime-100 text-lime-800">Regelgeving</span>
+          <span class="px-2 py-1 rounded-full bg-slate-100 text-slate-700">Projectadvies</span>
+        </div>
+        <div class="mt-auto pt-5 flex gap-3">
+          <a href="https://chatgpt.com/g/g-679201a8766481919b5b9f5141463452-chat-met-stikstofdossier-niet-officieel" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-[var(--kleo-yellow)] font-semibold">Open in ChatGPT</a>
+          <a href="#stikstof" class="px-4 py-2 rounded-xl border">Meer info</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="hoe" class="max-w-6xl mx-auto px-4 py-12">
+    <div class="rounded-3xl bg-white card p-6 md:p-10">
+      <h2 class="text-2xl md:text-3xl font-extrabold">Hoe werkt het?</h2>
+      <ol class="mt-4 grid md:grid-cols-3 gap-6 list-decimal list-inside text-slate-700">
+        <li><strong>Kies een GPT</strong> die past bij je vraag (regel, recht, huur, organisatie, transformatie, energie, stikstof).</li>
+        <li><strong>Open in ChatGPT</strong> – de GPT start in een nieuw tabblad in jouw ChatGPT-account.</li>
+        <li><strong>Stel je vraag</strong> of plak je tekst/bestanden. Krijg concrete uitleg, stappen en checklists.</li>
+      </ol>
+      <p class="mt-4 text-sm text-slate-500">Let op: de aangeboden custom gpt's hebben geen officiele status, controleer de juistheid alvorens ermee aan de slag.</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="max-w-6xl mx-auto px-4 py-16">
+    <div class="rounded-3xl brand-gradient p-8 md:p-12 text-ink">
+      <h2 class="text-2xl md:text-3xl font-extrabold">Samen iets bouwen?</h2>
+      <p class="mt-2 max-w-prose">Wil je een eigen chatwidget op je site, of je GPT’s koppelen aan documenten en formulieren? Ik help je graag met ontwerp, prompt en implementatie.</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="mailto:dutchkleo@gmail.com" class="px-5 py-3 rounded-2xl bg-white font-semibold">Stuur email aan Kleo</a>
+        <a href="#gpts" class="px-5 py-3 rounded-2xl bg-black/10 font-semibold">Bekijk GPT’s</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-slate-600 flex flex-col md:flex-row gap-2 md:items-center md:justify-between">
+      <p>© <span id="year"></span> Kleo • Bouwen & Wonen</p>
+      <p>Design & build by Kleo</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
 
